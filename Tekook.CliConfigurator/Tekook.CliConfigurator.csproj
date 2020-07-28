@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Copyright>Julian Tekook 2020</Copyright>
+    <Company>Tekook.dev</Company>
+    <Authors>Julian Tekook</Authors>
+    <Product>CliConfigurator</Product>
+    <RepositoryUrl>https://github.com/tekook/CliConfigurator.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>cli commandline options verbs</PackageTags>
+  </PropertyGroup>
+
+</Project>
