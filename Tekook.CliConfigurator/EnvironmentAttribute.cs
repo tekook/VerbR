@@ -5,7 +5,7 @@ namespace Tekook.CliConfigurator
     /// <summary>
     /// Attribute for Properties to map an env value.
     /// </summary>
-
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class EnvironmentAttribute : Attribute
     {
         /// <summary>
