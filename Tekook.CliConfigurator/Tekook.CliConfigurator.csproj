@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net45;net461</TargetFrameworks>
+    <Copyright>Julian Tekook 2020</Copyright>
+    <Company>Tekook.dev</Company>
+    <Authors>tekook</Authors>
+    <Product>CliConfigurator</Product>
+    <RepositoryUrl>https://github.com/tekook/CliConfigurator.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>cli;commandline;options;verbs</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageProjectUrl>https://github.com/tekook/CliConfigurator</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NLog" Version="4.7.2" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </Content>
+    <Content Include="..\README.MD">
+      <Pack>True</Pack>
+      <PackagePath>README.MD</PackagePath>
+    </Content>
+  </ItemGroup>
+
+</Project>
