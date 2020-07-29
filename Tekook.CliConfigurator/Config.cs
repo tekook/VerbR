@@ -18,14 +18,14 @@ namespace Tekook.CliConfigurator
         private static readonly NLog.ILogger log = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
-        /// Fill this configuration from <see cref="EnvSetterAttribute">env</see>.
+        /// Fill this configuration from <see cref="EnvironmentAttribute">env</see>.
         /// </summary>
         public void FillFromEnv()
         {
             PropertyInfo[] props = this.GetType().GetProperties();
             foreach (PropertyInfo prop in props)
             {
-                EnvSetterAttribute attr = prop.GetCustomAttribute<EnvSetterAttribute>();
+                EnvironmentAttribute attr = prop.GetCustomAttribute<EnvironmentAttribute>();
                 if (attr != null)
                 {
                     string env = Environment.GetEnvironmentVariable(attr.Name);
@@ -87,7 +87,7 @@ namespace Tekook.CliConfigurator
                 {
                     string propName = result.MemberNames.First();
                     Type t = this.GetType();
-                    EnvSetterAttribute attr = t.GetProperty(propName).GetCustomAttribute<EnvSetterAttribute>();
+                    EnvironmentAttribute attr = t.GetProperty(propName).GetCustomAttribute<EnvironmentAttribute>();
                     if (attr != null)
                     {
                         log.Error("ENV: {env} -> {message}", attr.Name, result.ErrorMessage);

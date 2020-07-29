@@ -9,13 +9,13 @@ namespace Tekook.CliConfigurator
     {
         /// <summary>
         /// Env which triggered the Exception.
-        /// Null if <see cref="EnvSetterAttribute"/> was not the reason.
+        /// Null if <see cref="EnvironmentAttribute"/> was not the reason.
         /// </summary>
         public string EnvName { get; protected set; }
 
         /// <summary>
         /// Property which triggered the Exception.
-        /// Null if <see cref="EnvSetterAttribute"/> was not the reason.
+        /// Null if <see cref="EnvironmentAttribute"/> was not the reason.
         /// </summary>
         public string PropertyName { get; protected set; }
 
