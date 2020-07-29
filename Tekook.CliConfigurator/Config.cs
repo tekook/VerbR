@@ -6,10 +6,20 @@ using System.Reflection;
 
 namespace Tekook.CliConfigurator
 {
+    /// <summary>
+    /// Base for all configuration classes.
+    /// Extend this class and implement your needed properties.
+    /// </summary>
     public abstract class Config
     {
+        /// <summary>
+        /// Log interface
+        /// </summary>
         private static readonly NLog.ILogger log = NLog.LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// Fill this configuration from <see cref="EnvSetterAttribute">env</see>.
+        /// </summary>
         public void FillFromEnv()
         {
             PropertyInfo[] props = this.GetType().GetProperties();
@@ -45,11 +55,20 @@ namespace Tekook.CliConfigurator
             }
         }
 
+        /// <summary>
+        /// Checks if this configuration is valid via DataAnnotations.
+        /// </summary>
+        /// <returns>true if configuration is valid.</returns>
         public bool IsValid()
         {
             return this.IsValid(out _);
         }
 
+        /// <summary>
+        /// Checks if this configuration is valid via DataAnnotations.
+        /// </summary>
+        /// <param name="results">Result of the validation.</param>
+        /// <returns>true if configuration is valid.</returns>
         public bool IsValid(out List<ValidationResult> results)
         {
             ValidationContext context = new ValidationContext(this);
@@ -57,6 +76,9 @@ namespace Tekook.CliConfigurator
             return Validator.TryValidateObject(this, context, results);
         }
 
+        /// <summary>
+        /// Perform validation via <see cref="IsValid(out List{ValidationResult})"/> and throw an <see cref="ConfigException"/> if it is not valid.
+        /// </summary>
         public void Validate()
         {
             if (!this.IsValid(out List<ValidationResult> results))

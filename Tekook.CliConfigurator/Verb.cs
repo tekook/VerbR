@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace Tekook.CliConfigurator
 {
+    /// <summary>
+    /// Base class for all verbs.
+    /// </summary>
+    /// <typeparam name="T">Provide your Type of Options.</typeparam>
+    /// <typeparam name="T2">Provide your Type of Config.</typeparam>
     public abstract class Verb<T, T2> where T : Options where T2 : Config
     {
         private static readonly NLog.ILogger log = NLog.LogManager.GetCurrentClassLogger();
@@ -19,6 +24,10 @@ namespace Tekook.CliConfigurator
         /// </summary>
         public T Options { get; set; }
 
+        /// <summary>
+        /// Create a new verb and load configuration from file or env.
+        /// </summary>
+        /// <param name="options">Options used for this configuration.</param>
         protected Verb(T options)
         {
             this.Options = options ?? throw new ArgumentNullException(nameof(options));
