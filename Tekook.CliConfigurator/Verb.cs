@@ -9,9 +9,54 @@ namespace Tekook.CliConfigurator
     /// Base class for all verbs.
     /// </summary>
     /// <typeparam name="T">Provide your Type of Options.</typeparam>
-    /// <typeparam name="T2">Provide your Type of Config.</typeparam>
-    public abstract class Verb<T, T2> where T : Options where T2 : Config
+    public abstract class Verb<T> where T : Options
     {
+        /// <summary>
+        /// Logger for this class.
+        /// </summary>
+        private static readonly NLog.ILogger log = NLog.LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// Options of this <see cref="Verb{T, T2}"/>.
+        /// </summary>
+        public T Options { get; set; }
+
+        /// <summary>
+        /// Create a new verb with the given options.
+        /// </summary>
+        /// <param name="options">Options used for this configuration.</param>
+        protected Verb(T options)
+        {
+            this.Options = options ?? throw new ArgumentNullException(nameof(options));
+        }
+
+        /// <summary>
+        /// Invoke the <see cref="Verb{T}"/>.
+        /// </summary>
+        /// <returns>Returns an Exitcode.</returns>
+        public int Invoke()
+        {
+            log.Info("Application starting");
+            return this.InvokeAsync().Result;
+            
+        }
+
+
+        /// <summary>
+        /// Invoke the <see cref="Verb{T}"/> asynchronosly.
+        /// </summary>
+        /// <returns>Exitcode.</returns>
+        public abstract Task<int> InvokeAsync();
+
+    }
+    /// <summary>
+    /// Base class for all verbs with configs.
+    /// </summary>
+    /// <typeparam name="T">Provide your Type of Options.</typeparam>
+    /// <typeparam name="T2">Provide your Type of Config.</typeparam>
+    public abstract class Verb<T, T2> : Verb<T> where T : ConfigurableOptions where T2 : Config
+    {
+
         private static readonly NLog.ILogger log = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -20,17 +65,11 @@ namespace Tekook.CliConfigurator
         public T2 Config { get; set; }
 
         /// <summary>
-        /// Options of this <see cref="Verb{T, T2}"/>.
-        /// </summary>
-        public T Options { get; set; }
-
-        /// <summary>
         /// Create a new verb and load configuration from file or env.
         /// </summary>
         /// <param name="options">Options used for this configuration.</param>
-        protected Verb(T options)
+        protected Verb(T options) : base(options)
         {
-            this.Options = options ?? throw new ArgumentNullException(nameof(options));
             if (this.Options.Config != null)
             {
                 try
@@ -54,12 +93,11 @@ namespace Tekook.CliConfigurator
                 this.Config.Validate();
             }
         }
-
         /// <summary>
         /// Invoke the <see cref="Verb{T, T2}"/>.
         /// </summary>
-        /// <returns>Returns an Exitcode.</returns>
-        public int Invoke()
+        /// <returns>Exit Code</returns>
+        public new int Invoke()
         {
             if (this.Options.ValidationOnly)
             {
@@ -67,17 +105,7 @@ namespace Tekook.CliConfigurator
                 log.Info("Validation passed");
                 return 0;
             }
-            else
-            {
-                log.Info("Application starting");
-                return this.InvokeAsync().Result;
-            }
+            return base.Invoke();
         }
-
-        /// <summary>
-        /// Invoke the <see cref="Verb{T, T2}"/> asynchronosly.
-        /// </summary>
-        /// <returns>Exitcode.</returns>
-        public abstract Task<int> InvokeAsync();
     }
 }
