@@ -77,8 +77,7 @@ namespace Tekook.CliConfigurator
             else
             {
                 this.Config = (T2)Activator.CreateInstance(typeof(T2));
-                EnvironmentParser parser = new EnvironmentParser(this.Config);
-                parser.Parse();
+                EnvironmentParser.Parse(this.Config);
                 this.Config.Validate();
             }
         }

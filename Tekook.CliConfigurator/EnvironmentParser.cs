@@ -3,21 +3,20 @@ using System.Reflection;
 
 namespace Tekook.CliConfigurator
 {
-    internal class EnvironmentParser
+    /// <summary>
+    /// Parser for <see cref="EnvironmentAttribute"/> and <see cref="EnvironmentObjectAttribute"/>.
+    /// </summary>
+    internal static class EnvironmentParser
     {
-        public object Instance { get; set; }
-
-        public Type Type { get; set; }
-
-        public EnvironmentParser(object instance)
+        /// <summary>
+        /// Parse an object with the given prefix.
+        /// </summary>
+        /// <param name="instance">Object to fill.</param>
+        /// <param name="prefix">Prefix to add to all env variables.</param>
+        public static void Parse(object instance, string prefix = "")
         {
-            this.Instance = instance ?? throw new ArgumentNullException(nameof(instance));
-            this.Type = instance.GetType();
-        }
-
-        public void Parse()
-        {
-            PropertyInfo[] props = this.Type.GetProperties();
+            Type type = instance.GetType();
+            PropertyInfo[] props = type.GetProperties();
             foreach (PropertyInfo prop in props)
             {
                 object[] attributes = prop.GetCustomAttributes(true);
@@ -25,31 +24,26 @@ namespace Tekook.CliConfigurator
                 {
                     if (attribute is EnvironmentAttribute envAttr)
                     {
-                        HandleAttribute(prop, envAttr);
+                        HandleAttribute(instance, prop, envAttr, prefix);
                     }
                     else if (attribute is EnvironmentObjectAttribute envObjAttr)
                     {
-                        HandleAttribute(prop, envObjAttr);
+                        HandleObjectAttribute(instance, prop, envObjAttr, prefix);
                     }
                 }
             }
         }
 
-        private void HandleAttribute(PropertyInfo prop, EnvironmentObjectAttribute attr)
+        private static void HandleAttribute(object instance, PropertyInfo prop, EnvironmentAttribute attr, string prefix)
         {
-            // to do -> handle EnvironMent
-        }
-
-        private void HandleAttribute(PropertyInfo prop, EnvironmentAttribute attr)
-        {
-            string env = Environment.GetEnvironmentVariable(attr.Name);
+            string env = Environment.GetEnvironmentVariable(prefix + attr.Name);
             if (env != null)
             {
                 if (prop.PropertyType != typeof(string))
                 {
                     try
                     {
-                        prop.SetValue(this, Activator.CreateInstance(prop.PropertyType, env));
+                        prop.SetValue(instance, Activator.CreateInstance(prop.PropertyType, env));
                     }
                     catch (TargetInvocationException e)
                     {
@@ -62,9 +56,15 @@ namespace Tekook.CliConfigurator
                 }
                 else
                 {
-                    prop.SetValue(this, env);
+                    prop.SetValue(instance, env);
                 }
             }
+        }
+
+        private static void HandleObjectAttribute(object instance, PropertyInfo prop, EnvironmentObjectAttribute attr, string prefix)
+        {
+            object value = prop.GetValue(instance);
+            Parse(value, prefix + attr.Prefix);
         }
     }
 }
