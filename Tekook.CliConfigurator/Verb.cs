@@ -11,7 +11,6 @@ namespace Tekook.CliConfigurator
     /// <typeparam name="T">Provide your Type of Options.</typeparam>
     public abstract class Verb<T> where T : Options
     {
-
         /// <summary>
         /// Options of this <see cref="Verb{T, T2}"/>.
         /// </summary>
@@ -27,23 +26,21 @@ namespace Tekook.CliConfigurator
         }
 
         /// <summary>
-        /// Invoke the <see cref="Verb{T}"/>.
+        /// Invoke <see cref="InvokeAsync"/>.Result
         /// </summary>
         /// <returns>Returns an Exitcode.</returns>
         public int Invoke()
         {
             return this.InvokeAsync().Result;
-            
         }
-
 
         /// <summary>
         /// Invoke the <see cref="Verb{T}"/> asynchronosly.
         /// </summary>
         /// <returns>Exitcode.</returns>
         public abstract Task<int> InvokeAsync();
-
     }
+
     /// <summary>
     /// Base class for all verbs with configs.
     /// </summary>
@@ -51,7 +48,6 @@ namespace Tekook.CliConfigurator
     /// <typeparam name="T2">Provide your Type of Config.</typeparam>
     public abstract class Verb<T, T2> : Verb<T> where T : ConfigurableOptions where T2 : Config
     {
-
         /// <summary>
         /// Config of the <see cref="Verb{T, T2}"/>.
         /// </summary>
@@ -86,9 +82,12 @@ namespace Tekook.CliConfigurator
                 this.Config.Validate();
             }
         }
+
         /// <summary>
-        /// Invoke the <see cref="Verb{T, T2}"/>.
+        /// Invokes the <see cref="Verb{T, T2}"/> via <see cref="Verb{T}.InvokeAsync"/>.Result.
+        /// if <see cref="ConfigurableOptions.ValidationOnly"/> is set, returns 0 if the validation passed.
         /// </summary>
+        /// <seealso cref="Verb{T}.Invoke"/>
         /// <returns>Exit Code</returns>
         public new int Invoke()
         {
