@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection;
 
 namespace Tekook.CliConfigurator
 {
@@ -15,39 +13,10 @@ namespace Tekook.CliConfigurator
         /// <summary>
         /// Fill this configuration from <see cref="EnvironmentAttribute">env</see>.
         /// </summary>
+        [Obsolete(nameof(FillFromEnv) + " is obsolete and will be removed in the next version. Verb contructor automatically fills env if config is null")]
         public void FillFromEnv()
         {
-            PropertyInfo[] props = this.GetType().GetProperties();
-            foreach (PropertyInfo prop in props)
-            {
-                EnvironmentAttribute attr = prop.GetCustomAttribute<EnvironmentAttribute>();
-                if (attr != null)
-                {
-                    string env = Environment.GetEnvironmentVariable(attr.Name);
-                    if (env != null)
-                    {
-                        if (prop.PropertyType != typeof(string))
-                        {
-                            try
-                            {
-                                prop.SetValue(this, Activator.CreateInstance(prop.PropertyType, env));
-                            }
-                            catch (TargetInvocationException e)
-                            {
-                                throw new ConfigException(prop.Name, attr.Name, e.InnerException);
-                            }
-                            catch (Exception e)
-                            {
-                                throw new ConfigException(prop.Name, attr.Name, "Type Problem. See InnerException for Details.", e);
-                            }
-                        }
-                        else
-                        {
-                            prop.SetValue(this, env);
-                        }
-                    }
-                }
-            }
+            EnvironmentParser.Parse(this);
         }
 
         /// <summary>
