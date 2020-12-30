@@ -64,6 +64,11 @@ namespace Tekook.CliConfigurator
         private static void HandleObjectAttribute(object instance, PropertyInfo prop, EnvironmentObjectAttribute attr, string prefix)
         {
             object value = prop.GetValue(instance);
+            if (value == null)
+            {
+                value = Activator.CreateInstance(prop.PropertyType);
+                prop.SetValue(instance, value);
+            }
             Parse(value, prefix + attr.Prefix);
         }
     }
