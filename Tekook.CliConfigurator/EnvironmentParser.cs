@@ -34,6 +34,14 @@ namespace Tekook.CliConfigurator
             }
         }
 
+        /// <summary>
+        /// Parse an attribute of the instance.
+        /// </summary>
+        /// <param name="instance">The object being parsed.</param>
+        /// <param name="prop">The property which should be parsed.</param>
+        /// <param name="attr">The attribute of the property.</param>
+        /// <param name="prefix">The prefix to use.</param>
+        /// <exception cref="ConfigException">Thrown if TargetInvocation fails while setting the property.</exception>
         private static void HandleAttribute(object instance, PropertyInfo prop, EnvironmentAttribute attr, string prefix)
         {
             string env = Environment.GetEnvironmentVariable(prefix + attr.Name);
@@ -61,6 +69,15 @@ namespace Tekook.CliConfigurator
             }
         }
 
+        /// <summary>
+        /// Handle <see cref="EnvironmentObjectAttribute"/>.
+        /// Calls <see cref="Parse(object, string)"/> with the object of the property.
+        /// If no instance is provided a new one will be created.
+        /// </summary>
+        /// <param name="instance">The object being parsed.</param>
+        /// <param name="prop">The property of the object which should be parsed.</param>
+        /// <param name="attr">The attribute of the property.</param>
+        /// <param name="prefix">The prefix to use.</param>
         private static void HandleObjectAttribute(object instance, PropertyInfo prop, EnvironmentObjectAttribute attr, string prefix)
         {
             object value = prop.GetValue(instance);
