@@ -13,11 +13,6 @@ namespace Tekook.CliConfigurator
     public abstract class Config
     {
         /// <summary>
-        /// Log interface
-        /// </summary>
-        private static readonly NLog.ILogger log = NLog.LogManager.GetCurrentClassLogger();
-
-        /// <summary>
         /// Fill this configuration from <see cref="EnvironmentAttribute">env</see>.
         /// </summary>
         public void FillFromEnv()
@@ -81,18 +76,8 @@ namespace Tekook.CliConfigurator
         /// </summary>
         public void Validate()
         {
-            if (!this.IsValid(out List<ValidationResult> results))
+            if (!this.IsValid())
             {
-                foreach (ValidationResult result in results)
-                {
-                    string propName = result.MemberNames.First();
-                    Type t = this.GetType();
-                    EnvironmentAttribute attr = t.GetProperty(propName).GetCustomAttribute<EnvironmentAttribute>();
-                    if (attr != null)
-                    {
-                        log.Error("ENV: {env} -> {message}", attr.Name, result.ErrorMessage);
-                    }
-                }
                 throw new ConfigException("Please check your enviroment variables, config is not valid!");
             }
         }

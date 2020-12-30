@@ -11,10 +11,6 @@ namespace Tekook.CliConfigurator
     /// <typeparam name="T">Provide your Type of Options.</typeparam>
     public abstract class Verb<T> where T : Options
     {
-        /// <summary>
-        /// Logger for this class.
-        /// </summary>
-        private static readonly NLog.ILogger log = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Options of this <see cref="Verb{T, T2}"/>.
@@ -36,7 +32,6 @@ namespace Tekook.CliConfigurator
         /// <returns>Returns an Exitcode.</returns>
         public int Invoke()
         {
-            log.Info("Application starting");
             return this.InvokeAsync().Result;
             
         }
@@ -56,8 +51,6 @@ namespace Tekook.CliConfigurator
     /// <typeparam name="T2">Provide your Type of Config.</typeparam>
     public abstract class Verb<T, T2> : Verb<T> where T : ConfigurableOptions where T2 : Config
     {
-
-        private static readonly NLog.ILogger log = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Config of the <see cref="Verb{T, T2}"/>.
@@ -102,7 +95,6 @@ namespace Tekook.CliConfigurator
             if (this.Options.ValidationOnly)
             {
                 // Validation is performed in constructor. If we reached this step we are valid.
-                log.Info("Validation passed");
                 return 0;
             }
             return base.Invoke();
