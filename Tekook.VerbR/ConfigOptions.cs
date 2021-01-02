@@ -6,12 +6,12 @@ namespace Tekook.CliConfigurator
     /// Base class for all options which contian a <see cref="Config"/>.
     /// Used via <see cref="CommandLine.Parser"/>.
     /// </summary>
-    public abstract class ConfigurableOptions : Options
+    public abstract class ConfigOptions
     {
         /// <summary>
         /// Path to the configuration file.
         /// </summary>
-        [Option('c', "config", Required = false, HelpText = "Path to json config. If not supplied env will be used")]
+        [Option('c', "config", Required = false, HelpText = "Path to config file.")]
         public string Config { get; set; }
 
         /// <summary>

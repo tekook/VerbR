@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Tekook.CliConfigurator
@@ -10,15 +9,6 @@ namespace Tekook.CliConfigurator
     /// </summary>
     public abstract class Config
     {
-        /// <summary>
-        /// Fill this configuration from <see cref="EnvironmentAttribute">env</see>.
-        /// </summary>
-        [Obsolete(nameof(FillFromEnv) + " is obsolete and will be removed in the next version. Verb contructor automatically fills env if config is null")]
-        public void FillFromEnv()
-        {
-            EnvironmentParser.Parse(this);
-        }
-
         /// <summary>
         /// Checks if this configuration is valid via DataAnnotations.
         /// </summary>

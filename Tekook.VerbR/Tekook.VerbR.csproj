@@ -5,21 +5,20 @@
     <Copyright>Julian Tekook 2020-2021</Copyright>
     <Company>Tekook.dev</Company>
     <Authors>tekook</Authors>
-    <Product>CliConfigurator</Product>
-    <RepositoryUrl>https://github.com/tekook/CliConfigurator.git</RepositoryUrl>
+    <Product>VerbR</Product>
+    <RepositoryUrl>https://github.com/tekook/VerbR.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>cli;commandline;options;verbs</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageProjectUrl>https://github.com/tekook/CliConfigurator</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/tekook/VerbR</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Version>0.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
