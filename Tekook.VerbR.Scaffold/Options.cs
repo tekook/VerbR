@@ -1,13 +1,10 @@
 ﻿using CommandLine;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Tekook.VerbR.Contracts;
 
 namespace Tekook.VerbR.Scaffold
 {
     /// <summary>
-    /// Implementation of options containing config 
+    /// Implementation of options containing config
     /// </summary>
     public class Options : IConfigOptions
     {

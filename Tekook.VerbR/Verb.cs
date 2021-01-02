@@ -64,6 +64,7 @@ namespace Tekook.VerbR
         /// <param name="options">Options used for this configuration.</param>
         protected Verb(TOptions options) : base(options)
         {
+            this.SetResolver();
             this.Config = this.Resolver?.Resolve();
         }
 
@@ -90,5 +91,11 @@ namespace Tekook.VerbR
             }
             return base.Invoke();
         }
+
+        /// <summary>
+        /// Creates and sets the <see cref="Resolver"/>.
+        /// Called in <see cref="Verb{TOptions, TConfig}.Verb(TOptions)"/>
+        /// </summary>
+        protected abstract void SetResolver();
     }
 }
