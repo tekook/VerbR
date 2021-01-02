@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <TargetFrameworks>netstandard2.0;net45;net5</TargetFrameworks>
     <Copyright>Julian Tekook 2020-2021</Copyright>
     <Company>Tekook.dev</Company>

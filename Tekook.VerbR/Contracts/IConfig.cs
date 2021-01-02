@@ -11,13 +11,13 @@ namespace Tekook.VerbR.Contracts
         /// Determinates if the configuration is valid.
         /// </summary>
         /// <returns>true if the config is valid.</returns>
-        public bool IsValid();
+        bool IsValid();
 
         /// <summary>
         /// Determinates if the configuration is valid.
         /// </summary>
         /// <param name="errors">The resulting errors.</param>
         /// <returns>true if the config is valid.</returns>
-        public bool IsValid(out IEnumerable<IValidationError> errors);
+        bool IsValid(out IEnumerable<IValidationError> errors);
     }
 }

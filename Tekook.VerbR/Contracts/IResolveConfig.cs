@@ -10,6 +10,6 @@
         /// Resolves the configuration.
         /// </summary>
         /// <returns>The resolved configuration.</returns>
-        public T Resolve();
+        T Resolve();
     }
 }
