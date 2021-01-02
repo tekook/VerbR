@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tekook.CliConfigurator\Tekook.CliConfigurator.csproj" />
+    <ProjectReference Include="..\Tekook.VerbR\Tekook.VerbR.csproj" />
   </ItemGroup>
 
 </Project>
