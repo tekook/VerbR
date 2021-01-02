@@ -1,5 +1,5 @@
 ﻿using System;
-using Tekook.CliConfigurator;
+using Tekook.VerbR;
 
 namespace Tests
 {

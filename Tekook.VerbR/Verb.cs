@@ -1,25 +1,26 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Tekook.VerbR.Contracts;
 
-namespace Tekook.CliConfigurator
+namespace Tekook.VerbR
 {
     /// <summary>
     /// Base class for all verbs.
     /// </summary>
-    /// <typeparam name="T">Provide your Type of Options.</typeparam>
-    public abstract class Verb<T> where T : class
+    /// <typeparam name="TOptions">Provide your Type of Options.</typeparam>
+    public abstract class Verb<TOptions> where TOptions : class
     {
         /// <summary>
         /// Options of this <see cref="Verb{T, T2}"/>.
         /// </summary>
-        public T Options { get; set; }
+        public TOptions Options { get; set; }
 
         /// <summary>
         /// Create a new verb with the given options.
         /// </summary>
         /// <param name="options">Options used for this configuration.</param>
-        protected Verb(T options)
+        protected Verb(TOptions options)
         {
             this.Options = options ?? throw new ArgumentNullException(nameof(options));
         }
@@ -43,21 +44,27 @@ namespace Tekook.CliConfigurator
     /// <summary>
     /// Base class for all verbs with configs.
     /// </summary>
-    /// <typeparam name="T">Provide your Type of Options.</typeparam>
-    /// <typeparam name="T2">Provide your Type of Config.</typeparam>
-    public abstract class Verb<T, T2> : Verb<T> where T : ConfigOptions where T2 : Config
+    /// <typeparam name="TOptions">Provide your Type of Options.</typeparam>
+    /// <typeparam name="TConfig">Provide your Type of Config.</typeparam>
+    public abstract class Verb<TOptions, TConfig> : Verb<TOptions> where TOptions : class where TConfig : class
     {
         /// <summary>
         /// Config of the <see cref="Verb{T, T2}"/>.
         /// </summary>
-        public T2 Config { get; set; }
+        public TConfig Config { get; set; }
+
+        /// <summary>
+        /// Resolver this Verb uses.
+        /// </summary>
+        protected IResolveConfig<TConfig> Resolver { get; set; }
 
         /// <summary>
         /// Create a new verb and load configuration from file or env.
         /// </summary>
         /// <param name="options">Options used for this configuration.</param>
-        protected Verb(T options) : base(options)
+        protected Verb(TOptions options) : base(options)
         {
+            this.Config = this.Resolver?.Resolve();
         }
 
         /// <summary>
@@ -68,10 +75,17 @@ namespace Tekook.CliConfigurator
         /// <returns>Exit Code</returns>
         public new int Invoke()
         {
-            if (this.Options.ValidationOnly)
+            if (this.Config is IConfig config)
             {
-                // Validation is performed in constructor. If we reached this step we are valid.
-                return 0;
+                if (!config.IsValid(out IEnumerable<IValidationError> errors))
+                {
+                    throw new ValidationException(errors);
+                }
+                if (this.Options is IConfigOptions configOptions && configOptions.ValidationOnly)
+                {
+                    // Validation is performed in constructor. If we reached this step we are valid.
+                    return 0;
+                }
             }
             return base.Invoke();
         }

@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace Tekook.CliConfigurator
+namespace Tekook.VerbR
 {
     /// <summary>
     /// Base class for all options which contian a <see cref="Config"/>.

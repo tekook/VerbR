@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tests
 {
-    class MyOptions : Tekook.CliConfigurator.ConfigOptions
+    class MyOptions : Tekook.VerbR.ConfigOptions
     {
     }
 }

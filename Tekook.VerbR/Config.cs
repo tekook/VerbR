@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Tekook.VerbR.Contracts;
 
-namespace Tekook.CliConfigurator
+namespace Tekook.VerbR
 {
     /// <summary>
     /// Base for all configuration classes.
     /// Extend this class and implement your needed properties.
     /// </summary>
-    public abstract class Config
+    public abstract class Config : IConfig
     {
         /// <summary>
         /// Checks if this configuration is valid via DataAnnotations.
