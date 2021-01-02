@@ -68,9 +68,10 @@ namespace Tekook.VerbR
         }
 
         /// <summary>
-        /// Invokes the <see cref="Verb{T, T2}"/> via <see cref="Verb{T}.InvokeAsync"/>.Result.
-        /// if <see cref="ConfigOptions.ValidationOnly"/> is set, returns 0 if the validation passed.
+        /// Invokes the <see cref="Verb{TOptions, TConfig}"/> via <see cref="Verb{TOptions}.InvokeAsync"/>.Result.
+        /// if <see cref="IConfigOptions.ValidationOnly"/> is set, returns 0 if the validation passed, throws <see cref="ValidationException"/> otherwise.
         /// </summary>
+        /// <exception cref="ValidationException">Thrown if the validation fails.</exception>
         /// <seealso cref="Verb{T}.Invoke"/>
         /// <returns>Exit Code</returns>
         public new int Invoke()

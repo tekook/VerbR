@@ -1,7 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <TargetFrameworks>netstandard2.0;net45;net5</TargetFrameworks>
+    <Copyright>Julian Tekook 2020-2021</Copyright>
+    <Company>Tekook.dev</Company>
+    <Authors>tekook</Authors>
+    <Product>VerbR.Scaffold</Product>
+    <RepositoryUrl>https://github.com/tekook/VerbR.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>cli;commandline;options;verbs;scaffold</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageProjectUrl>https://github.com/tekook/VerbR</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tekook.VerbR\Tekook.VerbR.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Tekook.VerbR.Scaffold;
 
 namespace Tests
 {
-    class MyOptions : Tekook.VerbR.ConfigOptions
+    internal class MyOptions : Options
     {
     }
 }

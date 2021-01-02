@@ -1,12 +1,15 @@
 ﻿using CommandLine;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Tekook.VerbR.Contracts;
 
-namespace Tekook.VerbR
+namespace Tekook.VerbR.Scaffold
 {
     /// <summary>
-    /// Base class for all options which contian a <see cref="Config"/>.
-    /// Used via <see cref="CommandLine.Parser"/>.
+    /// Implementation of options containing config 
     /// </summary>
-    public abstract class ConfigOptions
+    public class Options : IConfigOptions
     {
         /// <summary>
         /// Path to the configuration file.
