@@ -1,9 +1,8 @@
 ﻿using Config.Net;
+using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tekook.VerbR;
-using Tekook.VerbR.Contracts;
 using Tekook.VerbR.Resolvers;
 using Tekook.VerbR.Validators;
 
@@ -14,6 +13,10 @@ namespace Tests
         public TestValidation(ValidateOptions options) : base(options)
         {
             this.Resolver = new ConfigNetResolver<MyConfig, ValidateOptions>(builder => builder.UseJsonFile(options.Config));
+            this.Validator = new FluentValidator<MyConfig>((validator) =>
+            {
+                validator.RuleFor(x => x.UserDomain).NotNull().MinimumLength(3);
+            });
             this.Validator = new DataAnnotationValidator();
         }
 
@@ -21,15 +24,6 @@ namespace Tests
         {
             Console.WriteLine($"Hello {this.Config.UserName}, your ProcessorLevel is {this.Config.Processor.Level}!");
             return 0;
-        }
-    }
-
-    internal class Val : DataAnnotationValidator
-    {
-        public new bool IsValid(object config, out IEnumerable<IValidationError> errors)
-        {
-            config = (MyConfig)config;
-            return base.IsValid(config, out errors);
         }
     }
 }

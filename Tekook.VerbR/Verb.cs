@@ -106,7 +106,7 @@ namespace Tekook.VerbR
         protected virtual void Validate()
         {
             if (this.Validator != null
-                   && !this.Validator.IsValid(this.Config, out IEnumerable<IValidationError> errors) == false)
+                   && !this.Validator.IsValid(this.Config, out IEnumerable<IValidationError> errors))
             {
                 throw new ValidationException(errors);
             }

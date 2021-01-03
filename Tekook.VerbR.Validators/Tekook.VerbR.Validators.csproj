@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
-    <TargetFrameworks>netstandard2.0;net45;net5</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net5</TargetFrameworks>
     <Copyright>Julian Tekook 2020-2021</Copyright>
     <Company>Tekook.dev</Company>
     <Authors>tekook</Authors>
@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="FluentValidation" Version="9.3.0"/>
   </ItemGroup>
 
   <ItemGroup>
