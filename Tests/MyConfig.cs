@@ -2,13 +2,12 @@
 {
     public interface MyConfig
     {
-        SubConfig JD2 { get; set; }
-        string UserHome { get; set; }
+        Processor Processor { get; set; }
         string UserName { get; set; }
     }
 
-    public interface SubConfig
+    public interface Processor
     {
-        public string Home { get; set; }
+        public int Level { get; set; }
     }
 }

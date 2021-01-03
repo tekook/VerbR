@@ -3,8 +3,12 @@ using Tekook.VerbR.Contracts;
 
 namespace Tests
 {
-    internal class MyOptions : ICanValidateOnly
+    [Verb("json", isDefault: false)]
+    internal class JsonOptions : ICanValidateOnly
     {
+        [Option("config", Required = true)]
+        public string Config { get; set; }
+
         /// <summary>
         /// Determinates if the config should only be validated and the verb should not be invoked.
         /// Usefull for checking config before starting a service.
