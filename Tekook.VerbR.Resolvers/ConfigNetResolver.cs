@@ -5,10 +5,10 @@ using Tekook.VerbR.Contracts;
 namespace Tekook.VerbR.Resolvers
 {
     /// <summary>
-    /// Implements a <see cref="IResolveConfig{T}"/> via <see cref="Config.Net.ConfigurationBuilder{T}"/>.
+    /// Implements a <see cref="IResolveConfigs{T}"/> via <see cref="Config.Net.ConfigurationBuilder{T}"/>.
     /// </summary>
     /// <typeparam name="T">The type of the configuration to resolve.</typeparam>
-    public class ConfigNetResolver<T> : IResolveConfig<T> where T : class
+    public class ConfigNetResolver<T> : IResolveConfigs<T> where T : class
     {
         /// <summary>
         /// Define your function which sets the Configuration source for the <see cref="ConfigurationBuilder{T}"/>.

@@ -56,7 +56,12 @@ namespace Tekook.VerbR
         /// <summary>
         /// Resolver this Verb uses.
         /// </summary>
-        protected IResolveConfig<TConfig> Resolver { get; set; }
+        protected IResolveConfigs<TConfig, TOptions> Resolver { get; set; }
+
+        /// <summary>
+        /// Validator this Verb uses.
+        /// </summary>
+        protected IValidateConfigs<TConfig> Validator { get; set; }
 
         /// <summary>
         /// Create a new verb and load configuration from file or env.
@@ -64,8 +69,6 @@ namespace Tekook.VerbR
         /// <param name="options">Options used for this configuration.</param>
         protected Verb(TOptions options) : base(options)
         {
-            this.SetResolver();
-            this.Config = this.Resolver?.Resolve();
         }
 
         /// <summary>
@@ -77,25 +80,27 @@ namespace Tekook.VerbR
         /// <returns>Exit Code</returns>
         public new int Invoke()
         {
-            if (this.Config is IConfig config)
+            this.Initialize();
+            if (this.Options is IConfigOptions configOptions && configOptions.ValidationOnly)
             {
-                if (!config.IsValid(out IEnumerable<IValidationError> errors))
-                {
-                    throw new ValidationException(errors);
-                }
-                if (this.Options is IConfigOptions configOptions && configOptions.ValidationOnly)
-                {
-                    // Validation is performed in constructor. If we reached this step we are valid.
-                    return 0;
-                }
+                // Validation is performed in constructor. If we reached this step we are valid.
+                return 0;
             }
             return base.Invoke();
         }
 
         /// <summary>
-        /// Creates and sets the <see cref="Resolver"/>.
-        /// Called in <see cref="Verb{TOptions, TConfig}.Verb(TOptions)"/>
+        /// Resolves configuration via <see cref="Resolver"/> and validates the configuration via <see cref="Validator"/>.
         /// </summary>
-        protected abstract void SetResolver();
+        /// <exception cref="ValidationException">Thrown if the validation fails.</exception>
+        protected void Initialize()
+        {
+            this.Config = this.Resolver?.Resolve(this.Options);
+            if (this.Validator != null
+                && !this.Validator.IsValid(this.Config, out IEnumerable<IValidationError> errors) == false)
+            {
+                throw new ValidationException(errors);
+            }
+        }
     }
 }
