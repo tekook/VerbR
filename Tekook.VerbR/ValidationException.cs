@@ -12,15 +12,15 @@ namespace Tekook.VerbR
         /// <summary>
         /// The errors which occurred while validating.
         /// </summary>
-        public IEnumerable<IValidationError> ValidationError { get; }
+        public IEnumerable<IValidationError> ValidationErrors { get; }
 
         /// <summary>
         /// Creates a new instance of <see cref="ValidationException"/>.
         /// </summary>
         /// <param name="validationError">The errors which occurred while validating.</param>
-        public ValidationException(IEnumerable<IValidationError> validationError)
+        public ValidationException(IEnumerable<IValidationError> validationError) : base("Validation failed. Please check " + nameof(ValidationErrors))
         {
-            this.ValidationError = validationError ?? throw new ArgumentNullException(nameof(validationError));
+            this.ValidationErrors = validationError ?? throw new ArgumentNullException(nameof(validationError));
         }
     }
 }

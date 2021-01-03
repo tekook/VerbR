@@ -21,9 +21,10 @@ namespace Tests
 
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<EnvOptions, JsonOptions>(args)
+            Parser.Default.ParseArguments<EnvOptions, JsonOptions, ValidateOptions>(args)
                 .WithParsed<EnvOptions>(o => (new TestEnv(o)).Invoke())
                 .WithParsed<JsonOptions>(o => (new TestJson(o)).Invoke())
+                .WithParsed<ValidateOptions>(o => (new TestValidation(o)).Invoke())
                 .WithNotParsed(HandleParseError);
         }
     }

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tekook.VerbR.Resolvers\Tekook.VerbR.Resolvers.csproj" />
+    <ProjectReference Include="..\Tekook.VerbR.Validators\Tekook.VerbR.Validators.csproj" />
     <ProjectReference Include="..\Tekook.VerbR\Tekook.VerbR.csproj" />
   </ItemGroup>
 

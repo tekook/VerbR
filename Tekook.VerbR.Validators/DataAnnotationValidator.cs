@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Tekook.VerbR.Contracts;
@@ -8,7 +9,8 @@ namespace Tekook.VerbR.Validators
     /// <summary>
     /// Validator based von <see cref="System.ComponentModel.DataAnnotations.Validator"/>.
     /// </summary>
-    public class DataAnnotationValidator : IValidateConfigs<object>
+    /// <typeparam name="TConfig">The configuration to validate.</typeparam>
+    public class DataAnnotationValidator : IValidateConfigs
     {
         /// <inheritdoc/>
         public bool IsValid(object config)
@@ -21,7 +23,7 @@ namespace Tekook.VerbR.Validators
         {
             ValidationContext context = new ValidationContext(config);
             List<ValidationResult> results = new List<ValidationResult>();
-            if (!Validator.TryValidateObject(this, context, results))
+            if (!Validator.TryValidateObject(config, context, results))
             {
                 List<IValidationError> errs = new List<IValidationError>();
                 foreach (ValidationResult result in results)

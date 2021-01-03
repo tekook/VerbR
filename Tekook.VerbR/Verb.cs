@@ -61,7 +61,7 @@ namespace Tekook.VerbR
         /// <summary>
         /// Validator this Verb uses.
         /// </summary>
-        protected IValidateConfigs<TConfig> Validator { get; set; }
+        protected IValidateConfigs Validator { get; set; }
 
         /// <summary>
         /// Create a new verb and load configuration from file or env.
@@ -96,8 +96,17 @@ namespace Tekook.VerbR
         protected void Initialize()
         {
             this.Config = this.Resolver?.Resolve(this.Options);
+            this.Validate();
+        }
+
+        /// <summary>
+        /// Validates the configuration via <see cref="Validator"/> if it is set.
+        /// </summary>
+        /// <exception cref="ValidationException">Thrown if the validation fails.</exception>
+        protected virtual void Validate()
+        {
             if (this.Validator != null
-                && !this.Validator.IsValid(this.Config, out IEnumerable<IValidationError> errors) == false)
+                   && !this.Validator.IsValid(this.Config, out IEnumerable<IValidationError> errors) == false)
             {
                 throw new ValidationException(errors);
             }
