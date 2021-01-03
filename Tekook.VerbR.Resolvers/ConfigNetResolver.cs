@@ -5,15 +5,16 @@ using Tekook.VerbR.Contracts;
 namespace Tekook.VerbR.Resolvers
 {
     /// <summary>
-    /// Implements a <see cref="IResolveConfigs{T}"/> via <see cref="Config.Net.ConfigurationBuilder{T}"/>.
+    /// Implements a <see cref="IResolveConfigs{T, T2}"/> via <see cref="Config.Net.ConfigurationBuilder{T}"/>.
     /// </summary>
-    /// <typeparam name="T">The type of the configuration to resolve.</typeparam>
-    public class ConfigNetResolver<T> : IResolveConfigs<T> where T : class
+    /// <typeparam name="TConfig">The type of the configuration to resolve.</typeparam>
+    /// <typeparam name="TOptions">The type of options to resolve the configuration with.</typeparam>
+    public class ConfigNetResolver<TConfig, TOptions> : IResolveConfigs<TConfig, TOptions> where TConfig : class where TOptions : class
     {
         /// <summary>
         /// Define your function which sets the Configuration source for the <see cref="ConfigurationBuilder{T}"/>.
         /// </summary>
-        public Func<ConfigurationBuilder<T>, ConfigurationBuilder<T>> Source { get; set; } = (builder) => builder.UseAppConfig();
+        public Func<ConfigurationBuilder<TConfig>, ConfigurationBuilder<TConfig>> Source { get; set; } = (builder) => builder.UseAppConfig();
 
         /// <summary>
         /// Creates a new instance with the default <see cref="Source"/>.
@@ -26,15 +27,15 @@ namespace Tekook.VerbR.Resolvers
         /// Creates a new instance with the given source.
         /// </summary>
         /// <param name="source">Func to call to build the configuration.</param>
-        public ConfigNetResolver(Func<ConfigurationBuilder<T>, ConfigurationBuilder<T>> source)
+        public ConfigNetResolver(Func<ConfigurationBuilder<TConfig>, ConfigurationBuilder<TConfig>> source)
         {
             this.Source = source ?? throw new ArgumentNullException(nameof(source));
         }
 
         /// <inheritdoc/>
-        public T Resolve()
+        public TConfig Resolve(TOptions options)
         {
-            var builder = new ConfigurationBuilder<T>();
+            var builder = new ConfigurationBuilder<TConfig>();
             return this.Source.Invoke(builder).Build();
         }
     }

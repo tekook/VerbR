@@ -9,16 +9,12 @@ namespace Tests
     {
         public Run(MyOptions options) : base(options)
         {
+            this.Resolver = new ConfigNetResolver<MyConfig, MyOptions>((builder) => builder.UseEnvironmentVariables());
         }
 
         public async override Task<int> InvokeAsync()
         {
             return 0;
-        }
-
-        protected override void SetResolver()
-        {
-            this.Resolver = new ConfigNetResolver<MyConfig>((builder) => builder.UseEnvironmentVariables());
         }
     }
 }
