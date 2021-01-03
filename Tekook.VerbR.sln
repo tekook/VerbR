@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tekook.VerbR", "Tekook.Verb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{2269D3F4-E39A-4A0A-9F31-58FC62E7247F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tekook.VerbR.Scaffold", "Tekook.VerbR.Scaffold\Tekook.VerbR.Scaffold.csproj", "{B22B9BAC-A3E6-468F-A958-4F7497E04FEB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tekook.VerbR.Resolvers", "Tekook.VerbR.Resolvers\Tekook.VerbR.Resolvers.csproj", "{6214036C-1118-4478-AC81-080C5A520762}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tekook.VerbR.Validators", "Tekook.VerbR.Validators\Tekook.VerbR.Validators.csproj", "{0A90210B-C717-41BE-9957-EEE02E94D15A}"
@@ -27,10 +25,6 @@ Global
 		{2269D3F4-E39A-4A0A-9F31-58FC62E7247F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2269D3F4-E39A-4A0A-9F31-58FC62E7247F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2269D3F4-E39A-4A0A-9F31-58FC62E7247F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B22B9BAC-A3E6-468F-A958-4F7497E04FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B22B9BAC-A3E6-468F-A958-4F7497E04FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B22B9BAC-A3E6-468F-A958-4F7497E04FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B22B9BAC-A3E6-468F-A958-4F7497E04FEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6214036C-1118-4478-AC81-080C5A520762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6214036C-1118-4478-AC81-080C5A520762}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6214036C-1118-4478-AC81-080C5A520762}.Release|Any CPU.ActiveCfg = Release|Any CPU

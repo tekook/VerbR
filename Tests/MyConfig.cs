@@ -1,6 +1,6 @@
 ﻿namespace Tests
 {
-    internal class MyConfig : Tekook.VerbR.Scaffold.Config
+    internal interface MyConfig
     {
         public SubConfig JD2 { get; set; }
         public string UserHome { get; set; }
