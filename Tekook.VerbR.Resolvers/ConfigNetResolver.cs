@@ -32,6 +32,15 @@ namespace Tekook.VerbR.Resolvers
             this.Source = source ?? throw new ArgumentNullException(nameof(source));
         }
 
+        /// <summary>
+        /// Creates a new instance with a json source file.
+        /// </summary>
+        /// <param name="jsonFile">The file to use as json source.</param>
+        public ConfigNetResolver(string jsonFile)
+        {
+            this.Source = (builder) => builder.UseJsonFile(jsonFile);
+        }
+
         /// <inheritdoc/>
         public TConfig Resolve(TOptions options)
         {
